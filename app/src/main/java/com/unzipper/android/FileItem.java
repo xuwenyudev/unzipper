@@ -4,11 +4,11 @@ package com.unzipper.android;
  * Created by 23229 on 2020/2/12.
  */
 
-public class File {
+public class FileItem {
     private String name;
     private int iconId;
 
-    public File(String name, int iconId){
+    public FileItem(String name, int iconId){
         this.name = name;
         this.iconId = iconId;
     }

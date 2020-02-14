@@ -14,28 +14,37 @@ import java.util.List;
  * Created by 23229 on 2020/2/12.
  */
 
-public class FileAdapter extends ArrayAdapter<File> {
+public class FileAdapter extends ArrayAdapter<FileItem> {
     private int resourceId;
 
-    public FileAdapter(Context context, int textViewResourceId, List<File> objects){
+    public FileAdapter(Context context, int textViewResourceId, List<FileItem> objects){
         super(context, textViewResourceId, objects);
         resourceId = textViewResourceId;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
-        File file = getItem(position);
+        FileItem file = getItem(position);
         View view;
+        ViewHolder viewHolder;
         if(convertView == null){
             view = LayoutInflater.from(getContext()).inflate(resourceId, parent, false);
+            viewHolder = new ViewHolder();
+            viewHolder.fileIcon = (ImageView)view.findViewById(R.id.file_icon);
+            viewHolder.fileName = (TextView)view.findViewById(R.id.file_name);
+            view.setTag(viewHolder);
         }
         else{
             view = convertView;
+            viewHolder = (ViewHolder)view.getTag();
         }
-        ImageView fileIcon = (ImageView)view.findViewById(R.id.file_icon);
-        TextView fileName = (TextView)view.findViewById(R.id.file_name);
-        fileIcon.setImageResource(file.getIconId());
-        fileName.setText(file.getName());
+        viewHolder.fileIcon.setImageResource(file.getIconId());
+        viewHolder.fileName.setText(file.getName());
         return view;
+    }
+
+    class ViewHolder {
+        ImageView fileIcon;
+        TextView fileName;
     }
 }
